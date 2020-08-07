@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provendo servidor com node</title>
+    <style>
+        #conteudo{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exercicios HTML</h1>
+    </header>
+    <nav>
+        <a href wb-nav= "exercicios/teste.html">00 - Teste</a> |
+        <a href wb-nav= "exercicios/texto1.html">01 - Texto 1</a> |
+        <a href wb-nav= "exercicios/texto2.html">02 - Texto 2</a> |
+        <a href wb-nav= "exercicios/listas.html">03 - Listas</a> |
+        <a href wb-nav= "exercicios/listaAninhada.html">04 - Lista Aninhada</a> |
+        <a href wb-nav= "exercicios/links.html">05 - Links</a> |
+        <a href wb-nav= "exercicios/tabela.html">06 - Tabela</a> |
+        <a href wb-nav= "exercicios/form/form.html">07 - Formulário</a> |
+        <a href wb-nav= "exercicios/imagens.html">08 - Imagens</a> |
+        <a href wb-nav= "exercicios/video.html">09 - Vídeos </a> |
+        <a href wb-nav= "exercicios/tagsNaoVisuais.html">10 - tags Nao Visuais </a>
+
+    </nav>
+    <section id="conteudo">
+
+    </section>
+    <footer>
+        Curso de Web Moderno
+    </footer>
+    <script>
+        document.querySelectorAll('[wb-nav]').forEach(link => {
+            link.onclick = function(e){
+                e.preventDefault()
+                
+                const conteudo = document.getElementById('conteudo')
+                fetch(link.getAttribute('wb-nav'))
+                    .then(resp => resp.text() )
+                    .then(html => conteudo.innerHTML = html)
+            }
+        })
+    </script>
+</body>
+</html>
