@@ -1,0 +1,53 @@
+<h1>Vídeo</h1>
+<video src="http://files.cod3r.com.br/curso-web/video.mp4" id="meuVideo" width="550" controls controlsList="nodownload">
+    <source src="" type="video/mp4">
+     Seu browser não suporta a fonte de vídeo   
+</video>
+
+<div wm-progresso="meuVideo" class="progresso">
+    <div></div>
+</div>
+
+<div>
+    <button wm-play="meuVideo"> Play </button>
+    <button wm-pause="meuVideo"> Pause </button>
+</div>
+
+<style>
+    .progresso{
+        height: 20px;
+        width: 500px;
+        border: solid 2px #268f06;
+        margin: 20px;
+    }
+    .progresso > div{ 
+        background-color:#87e211;
+        color: #ffffff;
+        height: 100%;
+        text-align: right; 
+        font-size: 14px;
+        width: 0%;
+    }
+
+</style>
+<!-- ajax nao interpreta html -->
+
+<script>
+    function configurarVideo(id){
+        const video = document.getElementById(id)
+        video.oncontextmenu = () => false
+
+        document.querySelector(`[wm-play=${id}]`).onclick = e => video.play()
+        document.querySelector(`[wm-pause=${id}]`).onclick = e => video.pause()
+
+        setInterval(() => {
+            const percentual = (video.currentTime / video.duration) * 100 // percentual atual dividido pelo percentual que foi
+            const valorDiv = document.querySelector(`[wm-progresso=${id}] > div`)
+            valorDiv.style.width = `${percentual}%`
+            valorDiv.innerHTML = `${percentual.toFixed(1)}%` //mostrar uma casa decimal da porcentagem que o video está //innerHTML MAIUSCULO bota texto dentro de uma div
+
+        },500)
+    }
+
+    configurarVideo('meuVideo')
+</script>

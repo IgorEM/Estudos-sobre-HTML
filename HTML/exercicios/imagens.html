@@ -1,0 +1,136 @@
+<div wm-slider>
+
+    <p>
+        <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg"
+        alt="Muro da Cidade"
+        height="342" width="513"  
+        title="Muro da Cidade por Jucelino Kubtheck"}>
+    </p>
+    <!-- altura e largura -->
+    <p>
+        <img src="http://files.cod3r.com.br/curso-web/imagem2.gif" 
+        alt="Gif Intro Cod3r" height="342" >
+    </p>
+    
+    <p class="circular">
+    <img src="http://files.cod3r.com.br/curso-web/imagem3.png" 
+    alt="Rio de Janeiro" height="342">
+    </p>
+    
+    <p class="texto">
+        <img src="../imgs/avengers.jpg" 
+        alt="Vingadores"
+        height="342" width="613"
+        >
+    </p>
+    
+    <p class="texto">
+        <img src="http://files.cod3r.com.br/curso-web/avatar.jpg"
+        alt="Avatar"
+        height="50" 
+        align="left">
+        Texto asopldkjsaopfjpoej oajsf opjopa j
+        asdasokdaospdkoaskdaopskdpaoskdoapskd
+        asdow qwdija awijf aosj oj avatar a lenda de ang
+        a3rqvae1etar a3rqueqwe1les cae1trrwi3rnha awrgzul gigaqweqnte e mthaqweghaefro2sfd
+         asdasdoashdiuahsdihasdiuhasdi kasdkaskdk askd dsada
+         asdqwdqwefqfsafqwefeferfafawfqwf
+         asfqwfqwfqwfqwfqwfqwfqwfqwferghny yhytr rg er gre gif
+         Texto asopldkjsaopfjpoej oajsf opjopa j
+        asdasokdaospdkoaskdaopskdpaoskdoapskd
+        asdow qwdija awijf aosj oj avatar a lenda de ang
+        aveqwaewqqtar aqweqequelasdes carifwfnha azwefweful giwefwegante ewef magweferosfd
+         asdasdoashdiuahsdihasdiuhasdi kasdkaskdk askd dsada
+         asdqwdqwefqfsafqwefeferfafawfqwf
+         asfqwfqwfqwfqwfqwfqwfqwfqwferghny yhytr rg er gre gif
+    </p>
+    
+    <p class="cidade"> </p>
+    
+    <p>
+        <picture>
+            <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png"
+            media="(min-width: 600px)">
+            <img src="http://files.cod3r.com.br/curso-web/logo-estreita.png" alt="Logo">
+        </picture>
+    </p>
+
+</div>
+
+
+<style>
+
+    p{position:absolute;
+    display: none;
+    }
+
+    .circular {
+        width: 513px;
+        background-color: #444444;
+    }
+
+    .texto {
+        width: 400px;
+    }
+
+    .texto img{
+        margin-right: 10px;
+    }
+
+    .cidade{
+        width: 513px;
+        height: 342px;
+        background-image: url('http://files.cod3r.com.br/curso-web/imagem4.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 200%;
+    }
+</style>
+<!-- -516 fim <- -500 <- 500 <- 1000 <- 1500  -->
+<!-- fazer o estilo esquerda aumentar o pixel pra imagem se mover da esquerda pra direita  -->
+<script>
+    function mover(elem, inicio, fim, passo, callback){
+        const novoInicio = inicio - passo
+        if(novoInicio>= fim){
+            elem.style.left = novoInicio + 'px' //concatenação
+            setTimeout(() => mover(elem, novoInicio, fim, passo, callback), 7)
+        }else{
+            callback()
+        }
+
+    }
+    // a função recurssiva () => mover(elem, novoInicio, fim, passo, callback) esta executando a cada 7milisegundos 
+
+    //const p = document.querySelector('  [wm-slider] > p  ') 
+    //constante p recebeu o primeiro paragrafo(tag p) depois do wm-slider
+    //p.style.display = 'block'
+    //mover(p, 1500, -516, 5, () =>{
+    //    console.log ('Terminou!!!')
+    //})
+    function slider(){
+        const elementos = document.querySelectorAll('[wm-slider] > p')
+        const slides = Array.from(elementos) //transformou nodelist num array 
+        exibirSlides(slides, slides[0])
+    }
+
+    function exibirSlides(slides, slide){
+        slide.style.display= 'block'
+
+        const inicio = innerWidth //ou define 2000 e fim -500 ...largura da pagina naquele momento
+        const fim = -slide.clientWidth
+
+        slide.style.left = `${inicio}px`
+
+        mover(slide, inicio, fim, 5, ()=>{
+            slide.style.display= 'none'
+            exibirSlides(slides, getProximo(slides,slide))
+        })
+    }
+
+    function getProximo(lista, atual){
+        const i = lista.indexOf(atual) + 1
+        return i < lista.length ? lista[i] : lista[0]
+    }
+
+    slider()
+</script>
